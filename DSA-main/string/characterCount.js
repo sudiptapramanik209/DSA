@@ -11,4 +11,5 @@ for(var i=0;i<strings.length;i++) {
          count=1;
      }
 }
-console.log("")
+console.log(count);
+
