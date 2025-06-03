@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flipkart Clone</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-color: #f1f3f6;
+      color: #212121;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    ul {
+      list-style: none;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #2874f0;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+    .search-bar {
+      flex: 1;
+      margin: 0 20px;
+      position: relative;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 2px;
+      border: none;
+      font-size: 16px;
+    }
+    .search-bar button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #ffe500;
+      border: none;
+      padding: 0 15px;
+      cursor: pointer;
+      font-weight: 700;
+      border-radius: 0 2px 2px 0;
+      transition: background-color 0.3s ease;
+    }
+    .search-bar button:hover {
+      background-color: #f7d600;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .nav-links div:hover {
+      text-decoration: underline;
+    }
+    .cart {
+      position: relative;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background-color: #fb641b;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    /* Main banner */
+    .banner {
+      background: url('https://rukminim1.flixcart.com/flap/844/140/image/5f2a7f3a7a7a7a7a.jpg?q=50') no-repeat center center/cover;
+      height: 300px;
+      margin: 20px auto;
+      border-radius: 4px;
+      max-width: 1200px;
+      position: relative;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+
+    /* Product grid */
+    .products {
+      max-width: 1200px;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap: 20px;
+      padding: 0 10px;
+    }
+    .product-card {
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .product-image {
+      height: 180px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+    .product-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      height: 40px;
+      overflow: hidden;
+    }
+    .product-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fb641b;
+      margin-bottom: 10px;
+    }
+    .product-rating {
+      color: #388e3c;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .add-to-cart-btn {
+      background-color: #fb641b;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+    }
+    .add-to-cart-btn:hover {
+      background-color: #e55300;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2874f0;
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      margin-top: 40px;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .search-bar {
+        margin: 0 10px;
+      }
+      .banner {
+        font-size: 24px;
+        height: 200px;
+      }
+      .products {
+        grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+      }
+      .product-image {
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Flipkart</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search for products, brands and more" />
+      <button id="searchBtn">Search</button>
+    </div>
+    <div class="nav-links">
+      <div id="loginBtn">Login</div>
+      <div id="moreBtn">More</div>
+      <div class="cart">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="banner">
+    Big Savings on Electronics
+  </div>
+
+  <main>
+    <section class="products" id="productList">
+      <!-- Products will be dynamically inserted here -->
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2024 Flipkart Clone. All rights reserved.
+  </footer>
+
+  <script>
+    // Sample product data
+    const products = [
+      {
+        id: 1,
+        title: "Apple iPhone 14 Pro Max (128 GB) - Space Black",
+        price: 129900,
+        rating: 4.7,
+        image: "https://rukminim1.flixcart.com/image/312/312/ktketu80/mobile/7/0/0/iphone-14-pro-max-mq0k3hn-a-apple-original-imag6y7zqzqzqzqz.jpeg?q=70"
+      },
+      {
+        id: 2,
+        title: "Samsung Galaxy S23 Ultra (256 GB) - Phantom Black",
+        price: 124999,
+        rating: 4.6,
+        image: "https://rukminim1.flixcart.com/image/312/312/l4r1xe80/mobile/7/3/0/galaxy-s23-ultra-sm-s918bzkginu-samsung-original-imagf6z7z7z7z7z.jpeg?q=70"
+      },
+      {
+        id: 3,
+        title: "OnePlus 11 5G (16 GB RAM, 256 GB Storage)",
+        price: 56999,
+        rating: 4.5,
+        image: "https://rukminim1.flixcart.com/image/312/312/l0igvww0/mobile/7/7/0/oneplus-11-5g-mt2110-oneplus-original-imagf6z7z7z7z7z.jpeg?q=70"
+      },
+      {
+        id: 4,
+        title: "Sony Bravia 139 cm (55 inches) 4K Ultra HD Smart LED TV",
+        price: 69999,
+        rating: 4.3,
+        image: "https://rukminim1.flixcart.com/image/312/312/l0igvww0/television/7/7/0/sony-bravia-55x80j-original-imagf6z7z7z7z7z.jpeg?q=70"
+      },
+      {
+        id: 5,
+        title: "Boat Rockerz 255 Pro+ Bluetooth Headphones",
+        price: 2999,
+        rating: 4.1,
+        image: "https://rukminim1.flixcart.com/image/312/312/headphone/nz2xhu80/headphone/7/7/0/boat-rockerz-255-pro-plus-original-imagf6z7z7z7z7z.jpeg?q=70"
+      }
+    ];
+
+    const productList = document.getElementById('productList');
+    const cartCount = document.getElementById('cartCount');
+    let cart = [];
+
+    function renderProducts(productsToRender) {
+      productList.innerHTML = '';
+      productsToRender.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+
+        productCard.innerHTML = `
+          <img src="${product.image}" alt="${product.title}" class="product-image" />
+          <div class="product-title" title="${product.title}">${product.title}</div>
+          <div class="product-price">₹${product.price.toLocaleString()}</div>
+          <div class="product-rating">⭐ ${product.rating}</div>
+          <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+        `;
+
+        productList.appendChild(productCard);
+      });
+
+      // Add event listeners to add to cart buttons
+      document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const productId = parseInt(button.getAttribute('data-id'));
+          addToCart(productId);
+        });
+      });
+    }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (product) {
+        cart.push(product);
+        updateCartCount();
+        alert(`${product.title} added to cart!`);
+      }
+    }
+
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+
+    searchBtn.addEventListener('click', () => {
+      const query = searchInput.value.trim().toLowerCase();
+      if (query === '') {
+        renderProducts(products);
+      } else {
+        const filteredProducts = products.filter(product =>
+          product.title.toLowerCase().includes(query)
+        );
+        renderProducts(filteredProducts);
+      }
+    });
+
+    // Initial render
+    renderProducts(products);
+  </script>
+</body>
+</html>
